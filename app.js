@@ -2,13 +2,12 @@ import express from "express";
 import axios from "axios";
 import bodyParser from "body-parser";
 
-import { readFileSync, writeFileSync } from "fs";
-import ejs from "ejs";
+
 
 
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
@@ -33,12 +32,9 @@ app.get("/", async (req, res) => {
         const niftyOptionChain = await fetchOptionChain("NIFTY", niftyClosestExpiry);
         const bankNiftyOptionChain = await fetchOptionChain("BANKNIFTY", bankNiftyClosestExpiry);
 
-        const indexTemplate = readFileSync("./views/index.ejs", "utf8");
-const renderedHtml = ejs.render(indexTemplate);
+        
 
-// Save the output as index.html
-writeFileSync("index.html", renderedHtml);
-console.log("index.html has been generated.");
+
 
         // Render the EJS template with the data
         res.render("index", {
@@ -56,7 +52,7 @@ console.log("index.html has been generated.");
 });
 
 // Route to fetch option chain for a specific expiry date
-app.post("/option-chain", async (req, res) => {
+app.post("https://option-ft7d.onrender.com/option-chain", async (req, res) => {
     try {
         const { symbol, expiryDate } = req.body;
 
