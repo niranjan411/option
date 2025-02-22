@@ -14,7 +14,7 @@
             <!-- Nifty Option Chain -->
             <div class="col-md-6">
                 <h2>Nifty 50 (<%= niftyClosestExpiry %>)</h2>
-                <form action="/option-chain" method="POST">
+                <form action="https://option-ft7d.onrender.com/option-chain" method="POST">
                     <input type="hidden" name="symbol" value="NIFTY">
                     <select name="expiryDate" class="form-select mb-3">
                         <% niftyExpiryDates.forEach(date => { %>
