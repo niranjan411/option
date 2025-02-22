@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Option Chain Viewer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Option Chain Viewer</h1>
+
+        <div class="row">
+            <!-- Nifty Option Chain -->
+            <div class="col-md-6">
+                <h2>Nifty 50 (<%= niftyClosestExpiry %>)</h2>
+                <form action="/option-chain" method="POST">
+                    <input type="hidden" name="symbol" value="NIFTY">
+                    <select name="expiryDate" class="form-select mb-3">
+                        <% niftyExpiryDates.forEach(date => { %>
+                            <option value="<%= date %>" <%= date === niftyClosestExpiry ? "selected" : "" %>>
+                                <%= date %>
+                            </option>
+                        <% }) %>
+                    </select>
+                    <button type="submit" class="btn btn-primary">View Option Chain</button>
+                </form>
+
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Call Option</th>
+                            <th>Strike Price</th>
+                            <th>Put Option</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% niftyOptionChain.filtered.data.forEach(option => { %>
+                            <tr>
+                                <td><%= option.CE ? option.CE.lastPrice : "-" %></td>
+                                <td><%= option.strikePrice %></td>
+                                <td><%= option.PE ? option.PE.lastPrice : "-" %></td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Bank Nifty Option Chain -->
+            <div class="col-md-6">
+                <h2>Bank Nifty (<%= bankNiftyClosestExpiry %>)</h2>
+                <form action="/option-chain" method="POST">
+                    <input type="hidden" name="symbol" value="BANKNIFTY">
+                    <select name="expiryDate" class="form-select mb-3">
+                        <% bankNiftyExpiryDates.forEach(date => { %>
+                            <option value="<%= date %>" <%= date === bankNiftyClosestExpiry ? "selected" : "" %>>
+                                <%= date %>
+                            </option>
+                        <% }) %>
+                    </select>
+                    <button type="submit" class="btn btn-primary">View Option Chain</button>
+                </form>
+
+        
+
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Call Option</th>
+                            <th>Strike Price</th>
+                            <th>Put Option</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% bankNiftyOptionChain.filtered.data.forEach(option => { %>
+                            <tr>
+                                <td><%= option.CE ? option.CE.lastPrice : "-" %></td>
+                                <td><%= option.strikePrice %></td>
+                                <td><%= option.PE ? option.PE.lastPrice : "-" %></td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+    
+
+</body>
+</html>

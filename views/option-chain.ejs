@@ -1,0 +1,25 @@
+
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Option Chain - <%= symbol %> (<%= expiryDate %>)</h1>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Call Option</th>
+                    <th>Strike Price</th>
+                    <th>Put Option</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% optionChainData.filtered.data.forEach(option => { %>
+                    <tr>
+                        <td><%= option.CE ? option.CE.lastPrice : "-" %></td>
+                        <td><%= option.strikePrice %></td>
+                        <td><%= option.PE ? option.PE.lastPrice : "-" %></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+
+        <a href="/" class="btn btn-secondary">Back</a>
+    </div>
